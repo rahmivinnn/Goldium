@@ -5,25 +5,28 @@
   "framework": "vite",
   "installCommand": "npm install",
   "devCommand": "npm run dev",
-
   "functions": {
     "dist/index.js": {
-      "runtime": "vercel-nodejs@18.0.0"
+      "runtime": "nodejs18.x"
     }
   },
-
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/dist/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  },
   "rewrites": [
     {
       "source": "/api/(.*)",
       "destination": "/dist/index.js"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
     }
-  ],
-
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }
